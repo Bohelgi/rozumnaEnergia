@@ -24,6 +24,14 @@ export default [
   ),
   route("smart-energy", "routes/smartEnergyLab/App.jsx"),
   route("Battery_Kolodko", "routes/Battery_Kolodko/BatteryManagement.jsx"),
+  route(
+    "docs-storage-ShevchenkoO",
+    "routes/DocsStorage_ShevchenkoO/index.tsx"
+  ),
+  route(
+    "relational-warehouse-Onopriienko",
+    "routes/RelationalWarehouse_Onopriienko/index.tsx"
+  ),
  
   // HybridInverter with nested routes
   route("HybridInverter_Dosmukhamedov", "routes/HybridInverter_Dosmukhamedov/App.jsx", [
@@ -36,5 +44,12 @@ export default [
     "DataManager_Ryzhenko",
     "routes/DataManager_Ryzhenko/App.jsx"
   ),
+
+  route("effective-use", "routes/effectiveUse/App.tsx", [
+    route("", "routes/effectiveUse/pages/RealtimePage.tsx"),
+    route("history", "routes/effectiveUse/pages/HistoryPage.tsx"),
+    route("analytics", "routes/effectiveUse/pages/AnalyticsPage.tsx"),
+    route("forecast", "routes/effectiveUse/pages/ForecastPage.tsx"),
+  ]),
 
 ] satisfies RouteConfig;
