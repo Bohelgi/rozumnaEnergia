@@ -73,6 +73,13 @@ export default function Home() {
         >
           Кіберзахист (Кротенко)
         </NavLink>
+
+        <NavLink
+          className="font-bold text-indigo-800 bg-white px-4 py-2 rounded shadow hover:bg-indigo-50 hover:text-indigo-600 transition"
+          to="/zero-trust-Stelmakh"
+        >
+          Контроль доступу Zero Trust (Стельмах)
+        </NavLink>
       </nav>
 
       <h1 className="text-4xl mb-4 mt-6">

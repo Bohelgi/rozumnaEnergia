@@ -299,6 +299,69 @@ services:
       postgres:
         condition: service_healthy
 
+  # [Початок] Дмитро Стельмах — Zero Trust контроль доступу (порт 6021)
+  zt-access-stelmakh:
+    image: dimonstelmakh/smartenergy-zt-access:latest
+    ports:
+      - "6021:8000"
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://zt:${ZT_STELMAKH_DB_PASSWORD:?Set ZT_STELMAKH_DB_PASSWORD in .env}@zt-postgres-stelmakh:5432/zt_access
+      REDIS_URL: redis://zt-redis-stelmakh:6379/0
+      SECRET_KEY: "${ZT_STELMAKH_SECRET_KEY:?Set ZT_STELMAKH_SECRET_KEY in .env}"
+      CORS_ORIGINS: http://77.47.192.6:5173,http://localhost:5173
+      FRONTEND_URL: http://77.47.192.6:5173/zero-trust-Stelmakh
+      TRUST_SCORE_THRESHOLD: "0.7"
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: "587"
+      SMTP_USER: "${ZT_STELMAKH_SMTP_USER:-}"
+      SMTP_PASSWORD: "${ZT_STELMAKH_SMTP_PASSWORD:-}"
+      EMAIL_FALLBACK_LOG_CODES: "true"
+      BOOTSTRAP_ADMIN_USERNAME: "${ZT_STELMAKH_ADMIN_USERNAME:-admin}"
+      BOOTSTRAP_ADMIN_EMAIL: "${ZT_STELMAKH_ADMIN_EMAIL:-}"
+      BOOTSTRAP_ADMIN_PASSWORD: "${ZT_STELMAKH_ADMIN_PASSWORD:?Set ZT_STELMAKH_ADMIN_PASSWORD in .env}"
+    volumes:
+      - zt_stelmakh_models:/app/ml_models
+    depends_on:
+      zt-postgres-stelmakh:
+        condition: service_healthy
+      zt-redis-stelmakh:
+        condition: service_healthy
+    networks:
+      - zt-stelmakh
+
+  zt-postgres-stelmakh:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: zt
+      POSTGRES_PASSWORD: "${ZT_STELMAKH_DB_PASSWORD:?Set ZT_STELMAKH_DB_PASSWORD in .env}"
+      POSTGRES_DB: zt_access
+    volumes:
+      - zt_stelmakh_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zt -d zt_access"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - zt-stelmakh
+
+  zt-redis-stelmakh:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - zt_stelmakh_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - zt-stelmakh
+  # [Кінець] Дмитро Стельмах — Zero Trust контроль доступу
+
   # [Початок] Кротенко — Cybersecurity SmartEnergy
 
   cybersecurity-storage-init:
@@ -516,6 +579,8 @@ networks:
     driver: bridge
   document-storage:
     driver: bridge
+  zt-stelmakh:
+    driver: bridge
 
 volumes:
   influxdb_data: # оголошено том для всього проєкту
@@ -523,6 +588,9 @@ volumes:
   postgres_data:
   document_storage_mongo_data:
   document_storage_redis_data:
+  zt_stelmakh_pg:
+  zt_stelmakh_redis:
+  zt_stelmakh_models:
 
   cybersecurity-data:
     name: smartenergy-cybersecurity-data
