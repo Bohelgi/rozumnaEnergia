@@ -80,6 +80,13 @@ export default function Home() {
         >
           Контроль доступу Zero Trust (Стельмах)
         </NavLink>
+
+        <NavLink
+          className="font-bold hover:text-lime-700 transition"
+          to="telemetry-security-medvediev"
+        >
+          Захист телеметрії (Медведєв)
+        </NavLink>
       </nav>
 
       <h1 className="text-4xl mb-4 mt-6">

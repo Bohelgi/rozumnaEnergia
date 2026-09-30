@@ -299,6 +299,13 @@ services:
       postgres:
         condition: service_healthy
 
+  # Медведєв — Захист телеметрії (ECDH + AES-256-GCM + ECDSA)
+  telemetry-security-medvediev:
+    image: olehmedvediev/ecc-telemetry-security:latest
+    ports:
+      - "6020:6020"
+    restart: unless-stopped
+
   # [Початок] Дмитро Стельмах — Zero Trust контроль доступу (порт 6021)
   zt-access-stelmakh:
     image: dimonstelmakh/smartenergy-zt-access:latest
