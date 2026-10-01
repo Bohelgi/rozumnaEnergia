@@ -508,6 +508,44 @@ services:
 
   # [Кінець] Кротенко — Cybersecurity SmartEnergy
 
+  # [Початок] Сидоренко Дар'я Володимирівна
+  sydorenko-db:
+    image: postgres:15-alpine
+    # ports:
+    # - "5434:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: smartenergy
+    volumes:
+      - sydorenko_data:/var/lib/postgresql/data
+    restart: always
+
+  sydorenko-api:
+    image: dariasydorenko22/smartenergy-backend:v1
+    ports:
+      - "6009:8000" 
+    environment:
+      DATABASE_URL: postgresql://admin:adminpassword@sydorenko-db:5432/smartenergy
+      FABRIC_ADAPTER_URL: https://pushchair-moonrise-spinning.ngrok-free.dev
+      # FABRIC_ADAPTER_URL: http://host.docker.internal:3000
+      CORS_ORIGINS: http://77.47.192.6:5173, http://localhost:5173
+    depends_on:
+      - sydorenko-db
+    restart: always
+
+  sydorenko-generator:
+    image: dariasydorenko22/smartenergy-backend:v1
+    command: ["python", "generator.py"]
+    environment:
+      DATABASE_URL: postgresql://admin:adminpassword@sydorenko-db:5432/smartenergy
+      FABRIC_ADAPTER_URL: https://pushchair-moonrise-spinning.ngrok-free.dev
+      # FABRIC_ADAPTER_URL: http://host.docker.internal:3000
+    depends_on:
+      - sydorenko-db
+    restart: always
+  # [Кінець] Сидоренко Дар'я Володимирівна
+
 networks:
   default:
     driver: bridge
@@ -523,6 +561,7 @@ volumes:
   postgres_data:
   document_storage_mongo_data:
   document_storage_redis_data:
+  sydorenko_data:
 
   cybersecurity-data:
     name: smartenergy-cybersecurity-data
