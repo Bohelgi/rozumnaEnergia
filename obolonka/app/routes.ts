@@ -65,4 +65,6 @@ export default [
     route("admin", "routes/ZeroTrust_Stelmakh/pages/Admin.tsx"),
   ]),
 
+  route("telemetry-security-medvediev", "routes/TelemetrySecurity_Medvediev/App.jsx"),
+
 ] satisfies RouteConfig;
