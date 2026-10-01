@@ -73,6 +73,13 @@ export default function Home() {
         >
           Кіберзахист (Кротенко)
         </NavLink>
+
+        <NavLink
+          className="font-bold text-violet-800 bg-white px-4 py-2 rounded shadow hover:bg-violet-50 hover:text-violet-600 transition"
+          to="/Chain_security_Sydorenko"
+        >
+          Blockchain security panel (Сидоренко)
+        </NavLink>
       </nav>
 
       <h1 className="text-4xl mb-4 mt-6">

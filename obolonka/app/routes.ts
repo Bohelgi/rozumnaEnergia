@@ -52,4 +52,9 @@ export default [
     route("forecast", "routes/effectiveUse/pages/ForecastPage.tsx"),
   ]),
 
+  route(
+    "Chain_security_Sydorenko",
+    "routes/Chain_security_Sydorenko/App.tsx"
+  ),
+
 ] satisfies RouteConfig;
