@@ -75,6 +75,13 @@ export default function Home() {
         </NavLink>
 
         <NavLink
+          className="font-bold text-violet-800 bg-white px-4 py-2 rounded shadow hover:bg-violet-50 hover:text-violet-600 transition"
+          to="/Chain_security_Sydorenko"
+        >
+          Панель безпеки SmartEnergy (Сидоренко)
+        </NavLink>
+        
+        <NavLink
           className="font-bold text-indigo-800 bg-white px-4 py-2 rounded shadow hover:bg-indigo-50 hover:text-indigo-600 transition"
           to="/zero-trust-Stelmakh"
         >

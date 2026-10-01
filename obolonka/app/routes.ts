@@ -52,6 +52,10 @@ export default [
     route("forecast", "routes/effectiveUse/pages/ForecastPage.tsx"),
   ]),
 
+  route(
+    "Chain_security_Sydorenko",
+    "routes/Chain_security_Sydorenko/App.tsx"
+  ),
   // Dmytro Stelmakh - Zero Trust access control system
   route("zero-trust-Stelmakh", "routes/ZeroTrust_Stelmakh/index.tsx", [
     index("routes/ZeroTrust_Stelmakh/pages/Entry.tsx"),
