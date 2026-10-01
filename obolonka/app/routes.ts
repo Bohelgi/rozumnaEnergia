@@ -56,5 +56,19 @@ export default [
     "Chain_security_Sydorenko",
     "routes/Chain_security_Sydorenko/App.tsx"
   ),
+  // Dmytro Stelmakh - Zero Trust access control system
+  route("zero-trust-Stelmakh", "routes/ZeroTrust_Stelmakh/index.tsx", [
+    index("routes/ZeroTrust_Stelmakh/pages/Entry.tsx"),
+    route("login", "routes/ZeroTrust_Stelmakh/pages/Login.tsx"),
+    route("register", "routes/ZeroTrust_Stelmakh/pages/Register.tsx"),
+    route("forgot-password", "routes/ZeroTrust_Stelmakh/pages/ForgotPassword.tsx"),
+    route("reset-password", "routes/ZeroTrust_Stelmakh/pages/ResetPassword.tsx"),
+    route("verify-email/:token", "routes/ZeroTrust_Stelmakh/pages/VerifyEmail.tsx"),
+    route("dashboard", "routes/ZeroTrust_Stelmakh/pages/Dashboard.tsx"),
+    route("operations", "routes/ZeroTrust_Stelmakh/pages/Operations.tsx"),
+    route("admin", "routes/ZeroTrust_Stelmakh/pages/Admin.tsx"),
+  ]),
+
+  route("telemetry-security-medvediev", "routes/TelemetrySecurity_Medvediev/App.jsx"),
 
 ] satisfies RouteConfig;
